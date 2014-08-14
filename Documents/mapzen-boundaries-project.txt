@@ -1,0 +1,82 @@
+This document is going to focus on boundaries in the US. There
+is potential for the project to expand, but the initial project
+is US-centric.
+
+Administrative and other types of boundaries in OpenStreetMap
+can be valuable resources for geocoders like Pelias, but they
+have many problems in their current form. First of all, the
+initial import processes were haphazard and poorly coordinated.
+The result is that the first borders imported were derived from
+USGS data that wasn't particularly accurate, and then followup
+data was imported from Census Bureau data that was better. The
+lack of coordination, though, resulted in border renderings that
+looked like hash where USGS and Census Bureau data was close
+but not the same (the borders on the Hudson River between
+Glens Falls and NYC used to be a terrible mess.)
+
+On top of that, much hand editing occurred of borders, both
+on purpose and accidentially, that didn't help things much.
+What follows is a typical accidential editing scenario:
+
+    Since the initial road centerlines also came from the Census
+    Bureau's TIGER database, in cases where the road centerlines
+    matched up with Census Bureau orders, usually the nodes on the
+    road centerlines were at the same coordinates as nodes on the
+    borders, and in cases where the road centerline crossed a
+    border there would typically be a node. In the early days of
+    OSM, there were de-duplication bots running around that were
+    "helpfully" merging untagged nodes at the same lat/long. After
+    that, from time to time mappers trying to fix data would fix
+    a road or a border without realizing that they were also editing
+    some thing else. Sometimes this was ok, but often it was not.
+
+    When might this not be ok? In the road-crossing-border scenario,
+    fixing a road might drag the border out of line, and fixing the
+    border might drag a border out of line. In the road and border
+    share nodes scenario, it's less clear. If the road is defined
+    as the legal boundary (which does happen) then fixing the road
+    and accidentially improving the border can be ok. But if, for
+    example, the local DOT significantly changes the routing of a
+    road, the legal border does not necessarily move to follow the
+    new road alignment.
+
+The intentional editing scenarios that can cause problems are
+numerous and varied. Here are some examples relating to cases
+where waterways (rivers and streams) are also legal boundaries.
+
+    Frequently borders are defined with respect to rivers,
+    lakes and streams. Quite a lot of our data about waterways
+    in the US comes from the NHD (National Hydrography Dataset)
+    which comes from the USGS. Interestingly enough, the old
+    State and County borders from the USGS rarely if ever follow
+    the NHD data very closely, which leads problems both with
+    ugly map rendering and inaccuracies for geocoders (the
+    Census Bureau borders generally seem to be much better
+    about tracking waterways, at least in the case of the fully
+    detailed borders from shapefiles; the simplified data in
+    the ArcGIS extracts is over simplified and not as good.)
+
+    So in some cases mappers have intentionally tweaked borders
+    to match up with waterways. This is not necessarily a bad
+    thing to do, but it is often done without considering the
+    context and impact it will have on the map.
+
+    For example, some years ago a mapper modified part of the
+    USGS derived border between Pennsylvania and New York along
+    the Delaware River to use a previously imported NHD centerline
+    instead of the admittedly mediocre USGS state border. This
+    did produce a more accurate border - for the section where
+    the work was done. Unfortunately the mapper lacked the
+    courage of his convictions and didn't do the entire length
+    where the border followed the Delaware. On top of this,
+    a subsequent import of boundaries from the Census Bureau
+    for cities, villages and CDPs wasn't coordinated at all with
+    the prior import, and the result was what I'll call border
+    hash. I subsequently cleaned this up by importing newer,
+    more accurate Census Bureau data and aligning all the borders
+    to use it. The resulting border doesn't share the NHD river
+    centerline, but it does fall within the river and the hash
+    effect is gone.
+
+
+
