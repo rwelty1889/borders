@@ -4,9 +4,45 @@ is US-centric.
 
 Administrative and other types of boundaries in OpenStreetMap
 can be valuable resources for geocoders like Pelias, but they
-have many problems in their current form. First of all, the
-initial import processes were haphazard and poorly coordinated.
-The result is that the first borders imported were derived from
+have many problems in their current form. 
+
+The problems of Bitrot and maintanence have caused a number of mappers
+to start considering whether it is truly appropriate to store borders
+in OpenStreetMap. This document discusses some of the myriad of
+problems that exist and then outlines an approach to fixing it.
+
+
+Bitrot and Updates
+==================
+
+It is common with OSM imports to overlook the problem of keeping
+data up to date. There is no standard method for updates of TIGER
+road centerline data that has changed the intial import in 2007,
+nor is there any method for updates of the border data that was
+imported in 2008. As it happens, this is a very big problem, because
+the Census Bureau has been engaged in a long term project to
+substantially improve the data and some of it has changed quite a bit,
+mostly for the better.
+
+For boundaries this is mostly noticeable in the borders for
+places (cities, villages & cdps). In particular, for the CDPs which
+are statistical entities drawn by the Census Bureau themselves,
+in some cases they have changed quite a lot since 2008.
+
+Update strategies, though, can be difficult because OSM is a wiki
+project. Mappers can work on the boundaries themselves, and when
+contemplating an update from Census Bureau sources, there is not
+really a sound basis for making a choice between a mapper modified
+boundary and an updated boundary from TIGER data (this is really
+a variation of the fundamental problem of conflation; it's nearly
+impossible to automate and frequently difficult for a person to make
+an informed choice.)
+
+Editing Issues
+==============
+
+Many of the initial import processes were haphazard and poorly
+coordinated. The first US borders imported were derived from
 USGS data that wasn't particularly accurate, and then followup
 data was imported from Census Bureau data that was better. The
 lack of coordination, though, resulted in border renderings that
@@ -77,28 +113,4 @@ where waterways (rivers and streams) are also legal boundaries.
     to use it. The resulting border doesn't share the NHD river
     centerline, but it does fall within the river and the hash
     effect is gone.
-
-Bitrot and Updates
-
-It is common with OSM imports to overlook the problem of keeping
-data up to date. There is no standard method for updates of TIGER
-road centerline data that has changed since 2007, nor is there
-any method for updates of the border data that was imported in
-2008. As it happens, this is a very big problem, because the
-Census Bureau has been engaged in a long term project to substantially
-improve the data and some of it has changed quite a bit.
-
-For boundaries this is mostly noticeable in the borders for
-places (cities, villages & cdps). In particular, for the CDPs which
-are statistical entities drawn by the Census Bureau themselves,
-in some cases they have changed quite a lot since 2008.
-
-Update strategies, though, can be difficult because OSM is a wiki
-project. Mappers can work on the boundaries themselves, and when
-contemplating an update from Census Bureau sources, there is not
-really a sound basis for making a choice between a mapper modified
-boundary and an updated boundary from TIGER data (this is really
-a variation of the fundamental problem of conflation; it's nearly
-impossible to automate and frequently difficult for a person to make
-an informed choice.)
 
