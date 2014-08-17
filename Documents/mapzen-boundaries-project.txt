@@ -68,7 +68,7 @@ What follows is a typical accidential editing scenario:
 
     When might this not be ok? In the road-crossing-border scenario,
     fixing a road might drag the border out of line, and fixing the
-    border might drag a border out of line. In the road and border
+    border might drag a road out of line. In the road and border
     share nodes scenario, it's less clear. If the road is defined
     as the legal boundary (which does happen) then fixing the road
     and accidentially improving the border can be ok. But if, for
