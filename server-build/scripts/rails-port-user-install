@@ -1,0 +1,17 @@
+git clone --depth=1 https://github.com/openstreetmap/openstreetmap-website.git
+cd openstreetmap-website/
+bundle install
+cp config/example.application.yml config/application.yml
+cp config/example.database.yml config/database.yml
+sudo -u postgres -i
+createuser -s richard
+exit
+bundle exec rake db:create
+psql -d openstreetmap -c "CREATE EXTENSION btree_gist"
+cd db/functions
+make libpgosm.so
+cd ../..
+install-pgsql-functions
+bundle exec rake db:migrate
+bundle exec rake test
+bundle exec rails server
