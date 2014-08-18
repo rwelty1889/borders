@@ -2,6 +2,9 @@ This document is going to focus on boundaries in the US. There
 is potential for the project to expand, but the initial project
 is US-centric.
 
+Background
+==========
+
 Administrative and other types of boundaries in OpenStreetMap
 can be valuable resources for geocoders like Pelias, but they
 have many problems in their current form. 
@@ -10,6 +13,47 @@ The problems of Bitrot and maintanence have caused a number of mappers
 to start considering whether it is truly appropriate to store borders
 in OpenStreetMap. This document discusses some of the myriad of
 problems that exist and then outlines an approach to fixing it.
+
+Sources of Boundary Data
+========================
+
+There are a number of sources for US boundaries, mostly
+government sources.
+
+TIGER - US Census Bureau
+------------------------
+The Census Bureau has a very large collection of border data
+which they maintain to aid their counting efforts. Most of the
+data on legal boundaries is sourced from local governments, but
+some of the boundaries are creations of the Census Bureau
+(the statistical boundaries such as CDPs (Census Designated Places),
+and the approximations of Zip Code areas (ZCTA boundaries)).
+TIGER boundary data is not static, and in some cases appears to
+have improved substantially since the early OSM imports ca. 2008.
+
+USGS -The US Geological Survey
+------------------------------
+USGS maintains a number of boundary datasets. Their state and
+county boundaries were one of the early imports into OSM,
+but do not appear to be as high in quality as the current
+TIGER data.
+
+State and Local Government
+--------------------------
+Some state and local governments have made high quality data
+available. MASSGIS (Massachusetts) is an excellent example.
+Much local government data has been incorporated into TIGER,
+which is one of the reasons why TIGER has improved markedly
+since 2005.
+
+Quattroshapes
+-------------
+Quattroshapes is a project that was developed by Foursquare
+to try and provide a more useful set of borders. It is currently
+supplied as shapefiles containing borders from various sources.
+Data on the provenence of the borders is available. The largest
+of these shapefiles is quite unwieldy, but they do represent another
+available resource.
 
 
 Bitrot and Updates
@@ -20,14 +64,13 @@ data up to date. There is no standard method for updates of TIGER
 road centerline data that has changed the intial import in 2007,
 nor is there any method for updates of the border data that was
 imported in 2008. As it happens, this is a very big problem, because
-the Census Bureau has been engaged in a long term project to
-substantially improve the data and some of it has changed quite a bit,
-mostly for the better.
+the Census Bureau's effort to improve TIGER has made major progress
+since.
 
 For boundaries this is mostly noticeable in the borders for
-places (cities, villages & cdps). In particular, for the CDPs which
-are statistical entities drawn by the Census Bureau themselves,
-in some cases they have changed quite a lot since 2008.
+places (cities, villages & cdps). In particular, CDPs (statistical
+entities drawn by the Census Bureau themselves) have in some cases
+changed quite a lot since 2008.
 
 Update strategies, though, can be difficult because OSM is a wiki
 project. Mappers can work on the boundaries themselves, and when
@@ -48,7 +91,8 @@ data was imported from Census Bureau data that was better. The
 lack of coordination, though, resulted in border renderings that
 looked like hash where USGS and Census Bureau data was close
 but not the same (the borders on the Hudson River between
-Glens Falls and NYC used to be a terrible mess.)
+Glens Falls and NYC used to be a terrible mess - [Illustration
+needed]).
 
 On top of that, much hand editing occurred of borders, both
 on purpose and accidentially, that didn't help things much.
@@ -112,5 +156,65 @@ where waterways (rivers and streams) are also legal boundaries.
     more accurate Census Bureau data and aligning all the borders
     to use it. The resulting border doesn't share the NHD river
     centerline, but it does fall within the river and the hash
-    effect is gone.
+    effect is gone. [Before and after illustration needed]
+
+Inappropriate but Useful Borders
+================================
+
+There is clear consensus that there are many borders that are
+useful for many types of Geo projects, but probably don't belong
+in OSM. These borders probably include things like fire district
+borders, school district borders, zip code approximations, and
+so forth. CDPs are currently in OSM, but they are basically a
+hack for place names because they frequently resemble a notion
+about the location of a place name that doesn't correspond to a
+governmental entity.
+
+The Project
+===========
+
+The idea is to provide an example of what borders supplied outside
+of OSM might look like. A group of servers will be set up, each one
+supplying a particular set of border. Consumers of borders (geo coders
+and map renderers, for example) would be able to pick and choose
+what borders they need at any given time.
+
+The initial implementation will use the OSM software stack. Sets of
+borders will be supplied both via the OSM 0.6 API and as extracts
+(shapefiles may be possible as well, but this may take a little extra
+effort.) It would be little additional effort to set up mapnik to render
+the borders so that potential users can look at each database with
+a web browser and see what's actually in it.
+
+The sets of borders initially will be decomposed to allow fine
+selectivty. For example, in the TIGER Places files, the polygons represent
+incorporated municipalities (in NY, cities and villages) and CDPs.
+For this project, we will at a minimum separate CDPs out to a separate
+system, and probably will separate municipality types out as well.
+As the project evolves, recombining data sets to match the needs of
+data consumers is a possibility.
+
+The Effort So Far
+=================
+
+The initial effort focused on verifying that each individual piece is
+well understood, using TIGER boundaries for New York state. This is
+now complete. As part of this process, a python script named splitter
+was developed which can take OSM format files pulled from shape files, and
+both rewrite the shapefile attributes into appropriate OSM tags and
+also break out the boundaries into different OSM format files based on
+their tagging. This program will be used to split out the mixed types
+of boundaries encountered some TIGER shapefiles.
+
+The project has now moved into a new phase where we are trying to figure
+out all the issues with the data nationwide. It has proven to be the
+case that the Census Bureau boundary data does not always use their own
+tagging system consistently, and also includes many types of boundary data
+that we probably don't want to carry over at all - but we're not quite
+sure which data that is just yet.
+
+I anticipate that an example server providing the TIGER State boundaries
+will be up shortly, followed by a server providing most of the data from
+TIGER Places files.
+
 
