@@ -3,4 +3,5 @@ apt-get install emacs24 ruby1.9.1 libruby1.9.1 ri1.9.1 ruby1.9.1-dev
 apt-get install libmagickwand-dev libxml2-dev libxslt1-dev nodejs libsasl2-dev
 apt-get install apache2 apache2-threaded-dev build-essential git-core
 apt-get install postgresql  postgresql-contrib libpq-dev postgresql-server-dev-all
+apt-get install osmosis
 gem1.9.1 install bundler
