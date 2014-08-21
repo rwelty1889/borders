@@ -1,7 +1,7 @@
 Installation
 ============
 
-the intended user shouls have sudo privileges.
+the intended user should have sudo privileges.
 
 from the user's home directory,
 
