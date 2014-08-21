@@ -13,6 +13,9 @@ allNodes = {}
 # all ways without tags
 allWays = {}
 
+# negateid option
+negateIds=False
+
 class Target:
     def __init__(self, f, t):
         self.file = f
@@ -42,7 +45,10 @@ class Target:
             attributes = node.attrib
             for attrkey in attributes.keys():
                 if attrkey == 'id':
-                    element.set(attrkey, str( - int( node.get(attrkey))))
+                    nodeId = int( node.get('id'))
+                    if negateIds:
+                        nodeId = -nodeId
+                    element.set(attrkey, str( nodeId))
                 else:
                     element.set(attrkey, node.get(attrkey))
             element.set( 'version', '1')
@@ -82,7 +88,10 @@ class Target:
         for attrkey in attributes.keys():
             if (entity.tag == 'nd' or entity.tag == "member") \
                and attrkey == 'ref':
-                element.set(attrkey, str( - int( entity.get(attrkey))))
+                entityId = int( entity.get( 'ref'))
+                if negateIds:
+                    entityId = - entityId
+                element.set('id', str( entityId))
             else:
                 element.set(attrkey, entity.get(attrkey))
         return element
@@ -92,7 +101,10 @@ class Target:
         attributes = entity.attrib
         for attrkey in attributes.keys():
             if attrkey == 'id':
-                element.set(attrkey, str( - int( entity.get(attrkey))))
+                entityId = int( entity.get( 'id'))
+                if negateIds:
+                    entityId = - entityId
+                element.set('id', str( entityId))
             else:
                 element.set(attrkey, entity.get(attrkey))
         for child in entity:

@@ -46,7 +46,13 @@ usage = "usage: %prog SRCFILE"
 parser = optparse.OptionParser(usage=usage)
 
 # Parse and process arguments
+parser.add_option( "-n", "--negateIds", dest="negateIds", action="store_true",
+                   help="negate ids for --write-apidb usage with osmosis")
+parser.set_defaults( negateIds=False)
 (options, args) = parser.parse_args()
+
+if options.negateIds:
+    destination.negateIds=True
 
 sourceFile = args[0]
 
