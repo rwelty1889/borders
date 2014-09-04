@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export BASEDIR=`pwd`
+
+sudo $BASEDIR/server-build/scripts/rails-port-root-install
+
+$BASEDIR/server-build/scripts/rails-port-user-install
