@@ -13,4 +13,5 @@ cd ../..
 install-pgsql-functions
 bundle exec rake db:migrate
 bundle exec rake test
-bundle exec rails server
+# bundle exec rails server
+nohup rails s -p8080 &
