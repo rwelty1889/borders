@@ -7,6 +7,7 @@ import destination
 
 def setupTargets():
     t = [ destination.Target( "states.osm", [ tags.Tag( "place", "state")]), \
+          destination.Target( "counties.osm", [ tags.Tag( "place", "county")]), \
           destination.Target( "cdps.osm", [ tags.Tag( "place", "cdp")]), \
           destination.Target( "villages.osm", [ tags.Tag( "place", "village")]), \
           destination.Target( "citys.osm", [ tags.Tag( "place", "city")]), \
