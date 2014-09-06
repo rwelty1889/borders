@@ -293,8 +293,17 @@ def setupTranslations():
           tags.tagTranslation( "FUNCSTAT", None, "delete-kv", None, None), \
           tags.tagTranslation( "MTFCC", None, "delete-kv", None, None), \
           tags.tagTranslation( "NAMELSAD", None, "delete-kv", None, None), \
-          tags.tagTranslation( "STATEFP", None, "rename-key", "tiger:STATEFP", None)
+          tags.tagTranslation( "STATEFP", None, "rename-key", "tiger:STATEFP", None),
+          tags.tagTranslation( "METDIVFP", None, "delete-kv", None, None),
+          tags.tagTranslation( "COUNTYFP", None, "delete-kv", None, None),
+          tags.tagTranslation( "CSAFP", None, "delete-kv", None, None),
+          tags.tagTranslation( "CBSAFP", None, "delete-kv", None, None),
+          tags.tagTranslation( "COUNTYNS", None, "delete-kv", None, None),
 
+          tags.tagTranslation( "DIVISION", None, "delete-kv", None, None),
+          tags.tagTranslation( "STUSPS", None, "delete-kv", None, None),
+          tags.tagTranslation( "REGION", None, "delete-kv", None, None),
+          tags.tagTranslation( "STATENS", None, "delete-kv", None, None)
           ]
 
     return t
