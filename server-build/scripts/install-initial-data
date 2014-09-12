@@ -1,0 +1,3 @@
+#!/bin/sh
+
+osmosis --read-xml $1 --write-apidb database=openstreetmap validateSchemaVersion=no allowIncorrectSchemaVersion=yes user=$2
