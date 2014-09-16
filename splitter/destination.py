@@ -91,7 +91,7 @@ class Target:
                 entityId = int( entity.get( 'ref'))
                 if negateIds:
                     entityId = - entityId
-                element.set('id', str( entityId))
+                element.set('ref', str( entityId))
             else:
                 element.set(attrkey, entity.get(attrkey))
         return element

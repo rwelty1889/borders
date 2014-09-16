@@ -19,28 +19,7 @@ import tagsExample
 import destination
 import destinationsExample
 
-try:
-    from lxml import etree
-    log.debug("running with lxml.etree")
-except ImportError:
-    try:
-        # Python 2.5
-        import xml.etree.ElementTree as etree
-        log.debug("running with ElementTree on Python 2.5+")
-    except ImportError:
-        try:
-            # normal cElementTree install
-            import cElementTree as etree
-            log.debug("running with cElementTree")
-        except ImportError:
-            try:
-                # normal ElementTree install
-                import elementtree.ElementTree as etree
-                log.debug("running with ElementTree")
-            except ImportError:
-                log.error("Failed to import ElementTree from any known place")
-                raise
-
+from lxml import etree
 
 usage = "usage: %prog SRCFILE"
 parser = optparse.OptionParser(usage=usage)
